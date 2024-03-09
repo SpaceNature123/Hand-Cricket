@@ -1,0 +1,339 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <string>
+using namespace std;
+
+int x, inp, score[2],win = -1;//Integer;
+bool i;
+string eve;//String;
+
+inline void ran ()//Function to pick a random number;
+{
+  srand (time(0));
+  x = rand() % 11; 
+}
+
+void play() {
+    string state;
+    cout << "\n\nSame or Difference?\n";
+    cin >> state;
+
+    for (int i = 0; i < state.length(); i++) {
+        state[i] = tolower(state[i]);
+    }
+
+    state[0] = toupper(state[0]);
+
+    if (state == "Same") 
+    {
+      cout<<"You chose same.\n";
+        state = "Same";
+    } else {
+      cout<<"You chose difference.\n";
+        state = "Difference";
+    }
+
+    cout << "Best of ?\n";
+    cin >> inp;
+
+    if (inp < 1) {
+        inp = 1;
+    } else if (inp > 9) {
+        inp = 9;
+    }
+
+    int y, mark[2];
+    string pstate;
+    mark[0] = 0;
+    mark[1] = 0;
+
+    while (mark[0] < inp && mark[1] < inp) {
+        x = rand() % 2 + 1;
+        cout << "\nEnter 1 or 2\n";
+        cin >> y;
+
+        if (y < 1) {
+            y = 1;
+        } else if (y > 2) {
+            y = 2;
+        }
+
+        if (x == y) {
+            pstate = "Same";
+        } else {
+            pstate = "Difference";
+        }
+
+        cout << "You chose " << y << "\nComputer chose " << x << "\n";
+
+        if (pstate == state) {
+            mark[0]++;
+        } else {
+            mark[1]++;
+        }
+      cout<<"\r\t\t\t\t\t\t\t\t| "<<y<<" | "<<x<<" | "<<mark[0]<<" | "<<mark[1]<<" |";
+        if (mark[0] == inp || mark[1] == inp) {
+            break;
+        }
+    }
+
+    if (mark[0] < mark[1])
+    {
+        cout << "\nYou lose\n";
+        win = 1;
+    } else 
+    {
+        cout << "\nYou won\n";
+        win = 0;
+    }
+}
+
+int main ()
+{
+ //HAND CRICKET
+  cout<<"I am a bot designed to play Hand Cricket.\n";
+  cout<<"I hope you will enjoy this.\n";
+  cout<<"Please report any bugs if there are.\n";
+  cout<<"\n\n";
+  cout<<"ODD OR EVEN\n\n";
+  cout<<"Odd or Even?\na) Even\nb) Odd\n\n-> ";
+  cin>>eve;//eve changes it's behaviour. VIP variable.
+  for (int z = 0; z < eve.length(); z++)
+    {
+      eve[z] = tolower (eve[z]);
+    }
+  eve[0] = toupper (eve[0]);
+  if (eve == "Even" || eve == "A")
+  {
+    eve = "Even";
+    cout<<"You chose : Even\nBot chose : Odd";
+  }
+  else
+  {
+    cout<<"You chose : Odd\nBot chose : Even";
+    eve = "Odd";
+  }
+  cout<<"\nEnter a number.\n-> ";
+  cin>>inp;
+  while (inp > 10 || inp < 0)
+    {
+      cout<<"Invalid entry.\n";
+      cout<<"Please enter a valid value.\n-> ";
+      cin>>inp;
+    }
+  cout<<"You choose : "<<inp;
+  ran ();
+  cout<<"\nBot choose : "<<x;
+  if ((inp + x) % 2 == 0 && eve == "Even")
+  {
+    cout<<"\nYou won.\n";
+    eve = "You";
+  }
+  else if ((inp + x) % 2 == 0 && eve == "Odd")
+  {
+    cout<<"\nBot won.\n";
+    eve = "Bot";
+  }
+  else if (eve == "Even")
+  {
+    cout<<"\nBot won.\n";
+    eve = "Bot";
+  }
+  else
+  {
+    cout<<"\nYou won.\n";
+    eve = "You";
+  }
+  if (eve == "You")
+  {
+    cout<<"\nChoose to : \na) Bat\nb) Bowl\n-> ";
+    cin>>eve;
+    for (int z = 0; z < eve.length(); z++)
+      {
+        eve[z] = tolower(eve[z]);
+      }
+    eve[0] = toupper(eve[0]);
+    if (eve == "Bat" || eve == "A")
+    {
+      cout<<"You chose : Bat\nBot plays : Bowl\n";
+      eve = "Bat";
+      i = 0;//i = 0 is player bat
+    }
+    else
+    {
+      cout<<"You chose : Bowl\nBot plays : Bat\n";
+      eve = "Bowl";
+      i = 1;//i = 1 is bot bat
+    }
+  }
+  
+  if (eve == "Bot")
+  {
+    ran ();
+    x = (x % 2) + 1;
+    if (x == 1)
+    {
+      cout<<"Bot chose : Bat\nYou play  : Bowl\n";
+      eve = "Bat";
+      i = 1;
+    }
+    else
+    {
+      cout<<"Bot chose : Bowl\nYou play  : Bat\n";
+      eve = "Bowl";
+      i = 0;
+    }
+  }
+  int a,b,c;
+  x = 0;
+  inp = 1;
+  game :
+  for (int rep = 1; rep <= 2; rep++)
+    {
+  while (x != inp)
+    {
+  cout<<"\nEnter a number.\n->";
+  cin>>inp;
+      //To check whether the input is >10 or <0;
+      while (inp > 10 || inp < 0)
+      {
+        cout<<"Invalid entry.\n->";
+        cin>>inp;
+      }
+      //Displaythe numbers;
+  cout<<"You chose : "<<inp;
+  ran ();
+  cout<<"\nBot chose : "<<x;
+      //For 0's;
+      if (inp == 0 && i == 0)
+      {
+        score[0] = score[0] + x;
+      }
+      else if (x == 0 && i == 1)
+      {
+        score[1] = score[1] + inp;
+      }
+      //Adding input/bot number to the score;
+      if (i == 0 && inp != x)
+        score[i] += inp;
+      else
+        score[i] += x;
+      //Assiging last three values (history);
+      a = b;
+      b = c;
+      if (i == 0)
+        c = inp;
+      else
+        c = x;
+      //To check hatrick based on a,b,c;
+      if (a == b && b == c && c != 0)
+      {
+        cout<<"\nIt's a hatrick.\n";
+        if (i == 0)
+        score[0] += 3*inp;
+        else
+        score[1] += 3*x;
+        //Making a,b,c as 0 so no repetitive hatricks;
+        a = 0;
+        b = 0;
+        c = 0;
+      }
+      //Making gaps inbetween the numericals and "|" for a formatted output;
+      string gap[4];
+      if (inp < 10)
+        {
+          gap[0] = " ";//Eg : | 9  |;
+        }
+      else
+        {
+          gap[0] = "";//Eg : | 10 |;
+        }
+      
+      if (x < 10)
+        {
+          gap[1] = " ";//Eg : | 8  |;
+        }
+      else
+        {
+          gap[1] = "";//Eg : | 10 |;
+        }
+      
+      if (score[1] < 10)
+        {
+          gap[3] = "   ";//Eg : | 8    |;
+        }
+      else if (score[1] < 100 && score[1] > 9)
+        {
+        gap[3] = "  ";//Eg : | 10   |;
+        }
+      else if (score[1] < 1000 && score[1] > 99)
+        {
+          gap[3] = " ";//Eg : | 100  |;
+        }
+      else
+        {
+          gap[3] = "";//Eg : | 1000 |;
+        }
+      //Same as the above;
+      if (score[0] < 10)
+        {
+          gap[2] = "   ";
+        }
+      else if (score[0] < 100 && score[0] > 9)
+        {
+          gap[2] = "  ";
+        }
+      else if (score[0] < 1000 && score[0] > 99)
+        {
+          gap[2] = " ";
+        }
+      else
+        {
+          gap[2] = "";
+        }
+      //For displaying formatted score card;
+      //Using \r to avoid the problems of format due to the gadget used;
+  cout<<"\r\t\t\t\t\t\t\t\t| "<<inp<<gap[0]<<" | "<<x<<gap[1]<<" | "<<score[0]<<gap[2]<<" | "<<score[1]<<gap[3]<<" |";
+    }
+      //End of while(x != inp) loop
+      //Changing player's and bot's playing postion (eve);
+      if (inp == 0 && x == 0)
+      {
+        play();
+        if ((win == 0 && i == 0) || (win == 1 && i == 1))
+        {
+          win = -1;
+          goto game;
+        }
+      }
+          if (i == 0 && rep == 1)
+          {
+            win = -1;
+              cout<<"\nYou are Out.\nYou have to bowl now.\n";
+              eve = "Bowl";
+              i = 1;
+          }
+          
+          else if (i == 1 && rep == 1)
+          {
+            win = -1;
+              cout<<"\nBot is Out.\nYou have to bat now.\n";
+              eve = "Bat";
+              i = 0;
+          }    
+      //Resetting x,inp for the next round;
+      x = 0;
+      inp = 1;
+   }
+  //Final score;
+  cout<<"\n\n";
+  cout<<"You scored : "<<score[0]<<"\n";
+  cout<<"Bot scored : "<<score[1]<<"\n";
+  if (score[0] > score[1])
+    cout<<"You won.\n";
+  else if (score[0] < score[1])
+    cout<<"Bot won.\n";
+  else
+    cout<<"It's a draw.\n";
+}
